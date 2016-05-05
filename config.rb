@@ -36,7 +36,8 @@ end
 
 # Build-specific configuration
 configure :build do
-    ignore 'bower_components/*';
+    ignore 'bower_components/*'
+    ignore '.DS_Store'
 
     # For example, change the Compass output style for deployment
     activate :minify_css
