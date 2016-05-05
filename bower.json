@@ -1,0 +1,23 @@
+{
+  "name": "codygibbs.work.dev",
+  "authors": [
+    "Cody Gibbs <codymgibbs@gmail.com>"
+  ],
+  "description": "Cody Gibbs portfolio site",
+  "main": "",
+  "license": "private",
+  "homepage": "codygibbs.work",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "source/bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "foundation-sites": "^6.2.1",
+    "vue": "^1.0.21"
+  }
+}

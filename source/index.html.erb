@@ -1,0 +1,128 @@
+---
+title: The Work of Cody Gibbs
+---
+
+<ul>
+</ul>
+
+<div class="row">
+    <div class="small-12 columns text-center">
+        <div class="callout callout-header large">
+            <h1>Cody Gibbs</h1>
+            <p>Web backend engineer</p>
+            <div class="menu-centered">
+                <ul class="menu">
+                    <li><a href="https://github.com/brokunMusheen"><i class="fa fa-github-square fa-2x"></i></a></li>
+                    <li><a href="https://www.linkedin.com/in/cody-gibbs-b34ba396"><i class="fa fa-linkedin-square fa-2x"></i></a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="expanded row" style="background-color: #F1F1F1">
+    <div class="small-12 columns text-center">
+        <a href="#" class="button">Download Resume</a>
+    </div>
+</div>
+
+<section id="workApp">
+    <div class="row">
+        <div class="small-12 columns text-right filters">
+            <template v-for="tag in tags">
+                <input type="checkbox" id="tag-{{ tag.id }}" value="{{ tag.id }}" v-model="selectedTags" data-toggle="button" checked>
+                <label class="secondary button small" for="tag-{{ tag.id }}">{{ tag.name }}</label>
+            </template>
+        </div>
+    </div>
+    <div class="row">
+        <template v-for="card in activeCards">
+            <div class="small-12 medium-6 large-4 columns" v-bind:class="{ 'end': ($index == activeCards.length - 1) }">
+                <div class="callout project" v-on:click="selectedCard = card">
+                    <div class="project-tags text-right">
+                        <small class="project-tag" v-for="tag in card.tags">{{ tag }}</small>
+                    </div>
+                    <div class="text-center">
+                        <h5>{{ card.title }}</h5>
+                        <!-- <p>{{ card.summary }}</p> -->
+                        <!-- <p><a target="_blank" href="{{ card.text.href }}">{{{ card.link.text }}}</a></p> -->
+                    </div>
+                </div>
+            </div>
+        </template>
+    </div>
+    <div class="row">
+        <div class="small-12 columns">
+            <div class="callout">
+                <h2>{{ selectedCard.title }}</h2>
+                <p>{{ selectedCard.summary }}</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<% content_for :body_scripts do %>
+    <script type="text/javascript">
+    var elWork = new Vue({
+        el: "#workApp",
+        data: {
+            tags: [
+                {
+                    id: 'php',
+                    name: 'PHP'
+                },
+                {
+                    id: 'js',
+                    name: 'JavaScript'
+                },
+                {
+                    id: 'ruby',
+                    name: 'Ruby'
+                }
+            ],
+
+            /**
+             * Cards[]
+             *  - {string} title
+             *  - {string[]} tags
+             *  - {string} summary
+             *  - {Object} link
+             *    - {string} href
+             *    - {string} text
+             */
+            cards: <%= JSON.generate(data.projects) %>,
+            selectedCard: null,
+            selectedTags: []
+        },
+        computed: {
+            activeCards: function() {
+                if(this.selectedTags.length == 0) return this.cards;
+
+                var activeCards = [];
+                var filters = this.selectedTags;
+
+                this.cards.forEach(function(card) {
+
+                    function cardContainsAFilterTag(filters) {
+                        var found = false;
+
+                        filters.forEach(function(tag) {
+                            if(card.tags.indexOf(tag) != -1) {
+                                found = true;
+                            }
+                        });
+
+                        return found;
+                    }
+
+                    if(cardContainsAFilterTag(filters)) {
+                        activeCards.push(card);
+                    }
+                });
+
+                return activeCards.slice(0, 7);
+            }
+        }
+    });
+    </script>
+<% end %>

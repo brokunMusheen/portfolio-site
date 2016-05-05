@@ -1,0 +1,11 @@
+@mixin callout-header-gutter($gutter: $grid-column-gutter) {
+    @each $breakpoint, $gutter-width in $gutter {
+        @include breakpoint("#{$breakpoint}") {
+            margin-top: #{$gutter-width / 2};
+        }
+    }
+}
+
+.callout-header {
+    @include callout-header-gutter;
+}

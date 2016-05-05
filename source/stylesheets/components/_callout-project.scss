@@ -1,0 +1,17 @@
+$callout-project-background: #E1FAEA;
+
+.callout.project {
+    background-color: $callout-project-background;
+
+    &:hover {
+        background-color: scale-color($callout-project-background, $lightness: -15%);
+        cursor: pointer;
+    }
+
+    & > .project-tags {
+        & > .project-tag {
+            color: $dark-gray;
+            padding-left: 1em;
+        }
+    }
+}

@@ -1,0 +1,34 @@
+@mixin filter-row-gutter($gutter: $grid-column-gutter) {
+    @each $breakpoint, $gutter-width in $gutter {
+        @include breakpoint("#{$breakpoint}") {
+            padding-bottom: #{$gutter-width / 2};
+        }
+    }
+}
+
+$selected-color: $primary-color;
+
+.filters {
+    @include filter-row-gutter;
+}
+
+input[data-toggle] {
+  display: none;
+}
+
+input[data-toggle]:checked + label,
+input[data-toggle]:checked + label:active {
+  background-color: $selected-color;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15) inset,
+              0 1px 2px rgba(0, 0, 0, 0.05);
+
+    &:hover {
+        background-color: scale-color($selected-color, $lightness: -15%);
+    }
+}
+
+.button-group.toggle {
+  li:not(first-child) {
+    margin: 0 -0.9rem;
+  }
+}
