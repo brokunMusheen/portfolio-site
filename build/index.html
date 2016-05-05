@@ -1,0 +1,145 @@
+<!doctype html>
+<html>
+  <head>
+    <meta content="IE=edge" http-equiv="X-UA-Compatible">
+    <meta charset="utf-8">
+    <meta content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+
+    <!-- Use title if it's in the page YAML frontmatter -->
+    <title>The Work of Cody Gibbs</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
+    <link href='//fonts.googleapis.com/css?family=Lato:300,400' rel='stylesheet' type='text/css'>
+
+    <link href="/stylesheets/site-db5fed1c.css" rel="stylesheet" />
+    <script src="/javascripts/vue-aac7b00b.js"></script>
+  </head>
+
+  <body class="index">
+    <ul>
+</ul>
+
+<div class="row">
+    <div class="small-12 columns text-center">
+        <div class="callout callout-header large">
+            <h1>Cody Gibbs</h1>
+            <p>Web backend engineer</p>
+            <div class="menu-centered">
+                <ul class="menu">
+                    <li><a href="https://github.com/brokunMusheen"><i class="fa fa-github-square fa-2x"></i></a></li>
+                    <li><a href="https://www.linkedin.com/in/cody-gibbs-b34ba396"><i class="fa fa-linkedin-square fa-2x"></i></a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="expanded row" style="background-color: #F1F1F1">
+    <div class="small-12 columns text-center">
+        <a href="#" class="button">Download Resume</a>
+    </div>
+</div>
+
+<section id="workApp">
+    <div class="row">
+        <div class="small-12 columns text-right filters">
+            <template v-for="tag in tags">
+                <input type="checkbox" id="tag-{{ tag.id }}" value="{{ tag.id }}" v-model="selectedTags" data-toggle="button" checked>
+                <label class="secondary button small" for="tag-{{ tag.id }}">{{ tag.name }}</label>
+            </template>
+        </div>
+    </div>
+    <div class="row">
+        <template v-for="card in activeCards">
+            <div class="small-12 medium-6 large-4 columns" v-bind:class="{ 'end': ($index == activeCards.length - 1) }">
+                <div class="callout project" v-on:click="selectedCard = card">
+                    <div class="project-tags text-right">
+                        <small class="project-tag" v-for="tag in card.tags">{{ tag }}</small>
+                    </div>
+                    <div class="text-center">
+                        <h5>{{ card.title }}</h5>
+                        <!-- <p>{{ card.summary }}</p> -->
+                        <!-- <p><a target="_blank" href="{{ card.text.href }}">{{{ card.link.text }}}</a></p> -->
+                    </div>
+                </div>
+            </div>
+        </template>
+    </div>
+    <div class="row">
+        <div class="small-12 columns">
+            <div class="callout">
+                <h2>{{ selectedCard.title }}</h2>
+                <p>{{ selectedCard.summary }}</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+        <script type="text/javascript">
+    var elWork = new Vue({
+        el: "#workApp",
+        data: {
+            tags: [
+                {
+                    id: 'php',
+                    name: 'PHP'
+                },
+                {
+                    id: 'js',
+                    name: 'JavaScript'
+                },
+                {
+                    id: 'ruby',
+                    name: 'Ruby'
+                }
+            ],
+
+            /**
+             * Cards[]
+             *  - {string} title
+             *  - {string[]} tags
+             *  - {string} summary
+             *  - {Object} link
+             *    - {string} href
+             *    - {string} text
+             */
+            cards: [{"title":"Filesystem Gallery","summary":"Latte minimum viable product big data personas agile Steve Jobs 360 campaign personas latte viral. Long shadow user story driven sticky note integrate quantitative vs. qualitative thought.","tags":["php","laravel"],"link":{"href":"http://github.com","text":"See on Github <i class=\"fa fa-github\"></i>"}},{"title":"Foo Bar","tags":["php","laravel","js"],"summary":"Latte minimum viable product big data personas agile Steve Jobs 360 campaign personas latte viral. Long shadow user story driven sticky note integrate quantitative vs. qualitative thought.","link":{"href":"http://github.com","text":"See on Github <i class=\"fa fa-github\"></i>"}},{"title":"Giffit","tags":["ruby"],"summary":"Affordances workflow thinker-maker-doer driven moleskine viral prototype physical computing moleskine ship it. Ideate human-centered design disrupt prototype co-working sticky note actionable insight fund workflow grok","link":{"href":"http://github.com","text":"See on Github <i class=\"fa fa-github\"></i>"}}],
+            selectedCard: null,
+            selectedTags: []
+        },
+        computed: {
+            activeCards: function() {
+                if(this.selectedTags.length == 0) return this.cards;
+
+                var activeCards = [];
+                var filters = this.selectedTags;
+
+                this.cards.forEach(function(card) {
+
+                    function cardContainsAFilterTag(filters) {
+                        var found = false;
+
+                        filters.forEach(function(tag) {
+                            if(card.tags.indexOf(tag) != -1) {
+                                found = true;
+                            }
+                        });
+
+                        return found;
+                    }
+
+                    if(cardContainsAFilterTag(filters)) {
+                        activeCards.push(card);
+                    }
+                });
+
+                return activeCards.slice(0, 7);
+            }
+        }
+    });
+    </script>
+
+  </body>
+</html>

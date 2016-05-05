@@ -23,12 +23,6 @@ configure :development do
   activate :livereload
 end
 
-activate :deploy do |deploy|
-    deploy.deploy_method = :git
-    deploy.remote = ''
-    deploy.branch = 'releases'
-end
-
 ###
 # Helpers
 ###
@@ -42,9 +36,14 @@ end
 
 # Build-specific configuration
 configure :build do
-  # Minify CSS on build
-  # activate :minify_css
+    ignore 'bower_components/*';
 
-  # Minify Javascript on build
-  # activate :minify_javascript
+    # For example, change the Compass output style for deployment
+    activate :minify_css
+
+    # Minify Javascript on build
+    activate :minify_javascript
+
+    # Enable cache buster
+    activate :asset_hash
 end
