@@ -32,16 +32,16 @@ title: The Work of Cody Gibbs
         </div>
     </div>
     <div class="row">
-        <template v-if="activeCards.length > 0" v-for="card in activeCards">
+        <template v-if="activeCards.length > 0" v-for="cardIndex in activeCards">
             <div class="small-12 medium-6 large-4 columns" v-bind:class="{ 'end': ($index == activeCards.length - 1) }">
-                <div class="callout project" v-on:click="selectedCard = $index" v-bind:class="{ 'selected': ($index == selectedCard) }">
+                <div class="callout project" v-on:click="selectedCardIndex = $index" v-bind:class="{ 'selected': (cardIndex == selectedCardIndex) }">
                     <div class="project-tags text-right">
-                        <template v-for="tag in card.tags">
+                        <template v-for="tag in cards[cardIndex].tags">
                             <small class="project-tag"><i class="icon {{ tags[tag].iconClass }}"></i></small>
                         </template>
                     </div>
                     <div class="text-center">
-                        <h5>{{ card.title }}</h5>
+                        <h5>{{ cards[cardIndex].title }}</h5>
                     </div>
                 </div>
             </div>
@@ -53,11 +53,11 @@ title: The Work of Cody Gibbs
             </p>
         </div>
     </div>
-    <div class="row" v-show="selectedCard !== null">
+    <div class="row" v-show="(selectedCardIndex !== null) && (activeCards.indexOf(selectedCardIndex) !== -1)">
         <div class="small-12 columns">
             <div class="callout">
-                <h2>{{ cards[selectedCard].title }}</h2>
-                {{{ cards[selectedCard].writeup }}}
+                <h2>{{ cards[selectedCardIndex].title }}</h2>
+                {{{ cards[selectedCardIndex].writeup }}}
             </div>
         </div>
     </div>
@@ -80,7 +80,7 @@ title: The Work of Cody Gibbs
              *    - {string} text
              */
             cards: <%= JSON.generate(data.projects) %>,
-            selectedCard: null,
+            selectedCardIndex: null,
             selectedTags: []
         },
         computed: {
@@ -90,7 +90,7 @@ title: The Work of Cody Gibbs
                 var activeCards = [];
                 var filters = this.selectedTags;
 
-                this.cards.forEach(function(card) {
+                this.cards.forEach(function(card, cardIndex) {
 
                     function cardContainsAFilterTag(filters) {
                         var found = false;
@@ -105,7 +105,7 @@ title: The Work of Cody Gibbs
                     }
 
                     if(cardContainsAFilterTag(filters)) {
-                        activeCards.push(card);
+                        activeCards.push(cardIndex);
                     }
                 });
 
