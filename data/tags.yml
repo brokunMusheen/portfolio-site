@@ -1,0 +1,11 @@
+js:
+  name: JavaScript
+  iconClass: icon-prog-js01
+
+php:
+  name: PHP
+  iconClass: icon-prog-ruby
+
+ruby:
+  name: Ruby
+  iconClass: icon-prog-php02

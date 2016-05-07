@@ -1,10 +1,6 @@
 ---
 title: The Work of Cody Gibbs
 ---
-
-<ul>
-</ul>
-
 <div class="row">
     <div class="small-12 columns text-center">
         <div class="callout callout-header large">
@@ -26,36 +22,42 @@ title: The Work of Cody Gibbs
     </div>
 </div>
 
-<section id="workApp">
+<section id="workApp" class="portfolio">
     <div class="row">
-        <div class="small-12 columns text-right filters">
+        <div class="small-12 columns text-center filters">
             <template v-for="tag in tags">
-                <input type="checkbox" id="tag-{{ tag.id }}" value="{{ tag.id }}" v-model="selectedTags" data-toggle="button" checked>
-                <label class="secondary button small" for="tag-{{ tag.id }}">{{ tag.name }}</label>
+                <input type="checkbox" id="tag-{{ $key }}" value="{{ $key }}" v-model="selectedTags" data-toggle="button" checked>
+                <label class="secondary button small" for="tag-{{ $key }}"><i class="icon {{ tag.iconClass }}"></i></label>
             </template>
         </div>
     </div>
     <div class="row">
-        <template v-for="card in activeCards">
+        <template v-if="activeCards.length > 0" v-for="card in activeCards">
             <div class="small-12 medium-6 large-4 columns" v-bind:class="{ 'end': ($index == activeCards.length - 1) }">
-                <div class="callout project" v-on:click="selectedCard = card">
+                <div class="callout project" v-on:click="selectedCard = $index" v-bind:class="{ 'selected': ($index == selectedCard) }">
                     <div class="project-tags text-right">
-                        <small class="project-tag" v-for="tag in card.tags">{{ tag }}</small>
+                        <template v-for="tag in card.tags">
+                            <small class="project-tag"><i class="icon {{ tags[tag].iconClass }}"></i></small>
+                        </template>
                     </div>
                     <div class="text-center">
                         <h5>{{ card.title }}</h5>
-                        <!-- <p>{{ card.summary }}</p> -->
-                        <!-- <p><a target="_blank" href="{{ card.text.href }}">{{{ card.link.text }}}</a></p> -->
                     </div>
                 </div>
             </div>
         </template>
+        <div v-if="activeCards <= 0" class="callout text-center">
+            <h3>No filters active</h3>
+            <p>
+                Select the language or framework filters that you are interested in above.
+            </p>
+        </div>
     </div>
-    <div class="row">
+    <div class="row" v-show="selectedCard !== null">
         <div class="small-12 columns">
             <div class="callout">
-                <h2>{{ selectedCard.title }}</h2>
-                <p>{{ selectedCard.summary }}</p>
+                <h2>{{ cards[selectedCard].title }}</h2>
+                {{{ cards[selectedCard].writeup }}}
             </div>
         </div>
     </div>
@@ -66,26 +68,13 @@ title: The Work of Cody Gibbs
     var elWork = new Vue({
         el: "#workApp",
         data: {
-            tags: [
-                {
-                    id: 'php',
-                    name: 'PHP'
-                },
-                {
-                    id: 'js',
-                    name: 'JavaScript'
-                },
-                {
-                    id: 'ruby',
-                    name: 'Ruby'
-                }
-            ],
+            tags: <%= JSON.generate(data.tags) %>,
 
             /**
              * Cards[]
              *  - {string} title
              *  - {string[]} tags
-             *  - {string} summary
+             *  - {string} writeup
              *  - {Object} link
              *    - {string} href
              *    - {string} text
@@ -96,7 +85,7 @@ title: The Work of Cody Gibbs
         },
         computed: {
             activeCards: function() {
-                if(this.selectedTags.length == 0) return this.cards;
+                if(this.selectedTags.length == 0) return [];
 
                 var activeCards = [];
                 var filters = this.selectedTags;

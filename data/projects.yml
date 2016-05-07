@@ -1,8 +1,9 @@
 - title: Filesystem Gallery
-  summary: Latte minimum viable product big data personas agile Steve Jobs 360 campaign personas latte viral. Long shadow user story driven sticky note integrate quantitative vs. qualitative thought.
+  writeup: >
+    <p>Simple filesystem-based gallery library for Laravel</p>
+    <p>Latte minimum viable product big data personas agile Steve Jobs 360 campaign personas latte viral. Long shadow user story driven sticky note integrate quantitative vs. qualitative thought.</p>
   tags:
       - php
-      - laravel
   link:
       href: http://github.com
       text: See on Github <i class="fa fa-github"></i>
@@ -10,9 +11,8 @@
 - title: Foo Bar
   tags:
     - php
-    - laravel
     - js
-  summary: Latte minimum viable product big data personas agile Steve Jobs 360 campaign personas latte viral. Long shadow user story driven sticky note integrate quantitative vs. qualitative thought.
+  writeup: Latte minimum viable product big data personas agile Steve Jobs 360 campaign personas latte viral. Long shadow user story driven sticky note integrate quantitative vs. qualitative thought.
   link:
     href: http://github.com
     text: See on Github <i class="fa fa-github"></i>
@@ -20,7 +20,7 @@
 - title: Giffit
   tags:
     - ruby
-  summary: Affordances workflow thinker-maker-doer driven moleskine viral prototype physical computing moleskine ship it. Ideate human-centered design disrupt prototype co-working sticky note actionable insight fund workflow grok
+  writeup: Affordances workflow thinker-maker-doer driven moleskine viral prototype physical computing moleskine ship it. Ideate human-centered design disrupt prototype co-working sticky note actionable insight fund workflow grok
   link:
     href: http://github.com
     text: See on Github <i class="fa fa-github"></i>

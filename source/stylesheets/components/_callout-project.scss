@@ -1,10 +1,10 @@
-$callout-project-background: #E1FAEA;
-
 .callout.project {
-    background-color: $callout-project-background;
+    background-color: $light-gray;
+    border: 2px solid $light-gray;
 
     &:hover {
-        background-color: scale-color($callout-project-background, $lightness: -15%);
+        background-color: scale-color($light-gray, $lightness: -15%);
+        border-color: scale-color($light-gray, $lightness: -15%);
         cursor: pointer;
     }
 
@@ -12,6 +12,14 @@ $callout-project-background: #E1FAEA;
         & > .project-tag {
             color: $dark-gray;
             padding-left: 1em;
+
+            & > .icon {
+                font-size: 1.4em;
+            }
         }
+    }
+
+    &.selected {
+        border-color: scale-color($light-gray, $lightness: -15%);
     }
 }
